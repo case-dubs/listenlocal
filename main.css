@@ -30,24 +30,26 @@ body {
 }
 
 #nav li {
-	color: #F9E382;
+	color: #feffa3;
 	font-size: 18px;
 	display: inline;
 	padding-top: 50px;
 	padding-left: 30px;
 	font-family: arial;
+	letter-spacing: .05em;
 }
 
 #nav li a{
 	text-decoration: none;
-	color: #F9E382;
+	color: #feffa3;
+	font-size: 16px;
 }
 
 #nav li a:hover{
 	text-decoration: none;
 	color: white;
 	padding-bottom: 10px;
-	border-bottom: solid 3px white;
+	/*border-bottom: solid 3px white;*/
 }
 
 #heroMessage {
@@ -58,14 +60,13 @@ body {
 	margin-left: -180px;
 	margin-top: 50px;
 	width: 700px;
-	color: white;
-	letter-spacing: .25em;
-	
+	color: #feffa3;
 }
 
 #heroMessage h1 {
 	font-size: 60px;
 	line-height: 1.25;
+	letter-spacing: .15em;
 
 }
 
@@ -73,6 +74,7 @@ body {
 	font-size: 20px;
 	font-weight: thin;
 	line-height: 1.5;
+	letter-spacing: .15em;
 }
 
 #query {
