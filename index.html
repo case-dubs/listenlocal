@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<HTML>
+<Head>
+	<script src="./jquery-1.10.2.js"></script> 
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<title>Listen Local</title>
+</Head>
+<Body>
+	<div id="top">
+		<a href="#"><img src="./images/listenlocal_logo.png"></a>
+		<ul id="nav">
+			<li><a href="#">ABOUT</a></li>
+			<li><a href="#">HOW IT WORKS</a></li>
+			<li><a href="#">BLOG</a></li>
+		</ul>
+		<div id="heroMessage">
+			<h1>Listen Local</h1>
+			<h2>Tired of the same old bands, expensive tickets, and crowded scenes?</h2>
+			<h2>Use Listen Local to explore fresh music in your area.</h2>
+		</div>
+		<div id="query">
+			<h2>Location:</h2>
+			<input type="text" size="24px" name="location" class="searchInput" placeholder="   ZIP" id="location" class="text-entry">
+			<h2>Find Bands Within:</h2>
+			<input type="text" size="24px" name="distance" class="searchInput" placeholder="          Miles" id="distance" class="text-entry">
+			<input type="button" value="Go" class="button" id="search" onclick="submit();">
+		</div>
+	</div>	
+
+</Body>
+<script src="application.js"></script>
+</html>

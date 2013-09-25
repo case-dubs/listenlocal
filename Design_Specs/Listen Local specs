@@ -1,0 +1,27 @@
+Listen Local specs
+
+left-right-margin: 
+
+When user lands on homepage (hasn't yet specified location), Local automatically loads bands playing in next 48 hours within 10 miles of 94117, with same API calls as below.
+
+Location: user zip code 
+Find Bands within (miles):
+Go: sends zip code and mile range to songkick
+
+	Songkick returns a (band name, event date, event location - city, ticket prices, url-link to event page on songkick) of all of the bands playing within the next 7 days (default) within the number of miles specified from the zip code.
+
+	Local does a callback request to Spotify's API requesting (band photo, band url on spotify, the most popular song from the band - if available, if not available, it returns the top song available) for each of the bands delivered by spotify. If a band listed on songkick is not available on spotify (error). 
+
+	For all bands listed on both Songkick and spotify (callback to spotify doesn't return error), the bands are loaded on the page in alphebetical order. The first 20 bands are loaded onto the first page including the following info:
+
+	Band photo (origin: spotify)
+	Band name - including url to songkick profile - which opens in a new window (origin: songkick). "Buy tickets" hyperlink also loads this same url in a new window. 
+	Concert date (origin: spotify)
+	Concert city (origin: songkick)
+	Most popular song (origin: )
+
+	If there are no bands playing within the requested distance and time frame, message appears: "We're sorry. We weren't able to find any bands playing in your area within the distance and timeframe you specified." 
+
+	If user tries again and gets another error, the following error message appears: "We're really sorry! We still weren't able to find any bands playing within your area in that range. We're adding new bands every day and would appreciate it if you'd give us another chance in the future!"
+
+	If user doesn't specify a location and/or mile range, a pop-up window appears saying ("Please specify your location and search distance")

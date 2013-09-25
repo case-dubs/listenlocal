@@ -1,0 +1,120 @@
+body {
+	font-family: "Heiti SC", "Gill Sans", Arial;
+}
+
+#top {
+	background: 
+		url('./images/passionpit1_smaller.jpg') 100% no-repeat;
+	background-size: cover;
+	height: 550px;
+	margin: -10px;
+	min-width: 900px;
+}
+
+#top a img {
+	float: left;
+	display: inline-block;
+	margin-left: 75px;
+	margin-top: 30px;
+	height: 55px;
+	margin-bottom: 100px;
+}
+
+#nav {
+	float: right;
+	margin-right: 75px;
+	display: inline-block;
+	list-style: none;
+	text-align: left;
+	margin-top: 40px;
+}
+
+#nav li {
+	color: #F9E382;
+	font-size: 18px;
+	display: inline;
+	padding-top: 50px;
+	padding-left: 30px;
+	font-family: arial;
+}
+
+#nav li a{
+	text-decoration: none;
+	color: #F9E382;
+}
+
+#nav li a:hover{
+	text-decoration: none;
+	color: white;
+	padding-bottom: 10px;
+	border-bottom: solid 3px white;
+}
+
+#heroMessage {
+	z-index: 2;
+	position: relative;
+	display: inline-block;
+	float: left;
+	margin-left: -180px;
+	margin-top: 50px;
+	width: 700px;
+	color: white;
+	letter-spacing: .25em;
+	
+}
+
+#heroMessage h1 {
+	font-size: 60px;
+	line-height: 1.25;
+
+}
+
+#heroMessage h2 {
+	font-size: 20px;
+	font-weight: thin;
+	line-height: 1.5;
+}
+
+#query {
+	position: relative;
+	/*margin-top: 450px;
+	margin-left: -180px;*/
+	display: inline-block;
+	margin-left: 80px;
+	margin-top: 40px;
+}
+
+#query h2 {
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 16px;
+	position: relative;
+	color: white;
+	margin-right: 15px;
+}
+
+.searchInput{
+	height: 30px;
+	width: 150px;
+	margin-right: 25px;
+}
+
+#distance {
+	
+}
+
+#search {
+	background-color: #F9E382;
+	/*color: brown;*/
+	height: 45px;
+	border-radius: 25px;
+	width: 75px;
+	border: none;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#search:hover{
+	opacity: .5;
+}
