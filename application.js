@@ -47,6 +47,7 @@
      	  	var eventVenue = skEventsReturned.resultsPage.results.event[0].venue.displayName;
      	  	var eventDate = skEventsReturned.resultsPage.results.event[0].start.date;
      	  	var eventTime = skEventsReturned.resultsPage.results.event[0].start.time;
+     	  	var eventLocation = skEventsReturned.resultsPage.results.event[0].location.city;
      	  	console.log(skArtistName + " is performing at " + eventVenue + " on " + eventDate + "at " + eventTime);
      	  
      	  	var spotifyArtistApi = "http://ws.spotify.com/search/1/track?q=artist:"+skArtistName	
@@ -80,10 +81,14 @@
 				var venue = document.getElementById('eventVenue');
 				var venueNode = document.createTextNode('Venue: ' + eventVenue);
 
+				var city = document.getElementById('eventCity');
+				var cityNode = document.createTextNode('Location: ' + eventLocation);
+			
 			//prints the artist and event info on the page above the listen app
 				artistHeader.appendChild(artistNode);
 				date.appendChild(dateNode);
 				venue.appendChild(venueNode);
+				city.appendChild(cityNode);
 
 			//give widget the URI
 				firstButton.src = "https://embed.spotify.com/?uri="+spotifyID;
