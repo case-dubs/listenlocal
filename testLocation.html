@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
+    <script>
+var geocoder;
+
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+ 
+}
+
+
+function codeAddress() {
+  var address = document.getElementById('address').value;
+  geocoder.geocode( { 'address': address}, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK) {
+	  console.dir(results);
+      console.log("here is one of the long,lat values: " + results[0].geometry.location.lb);    
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);  //this method just makes sure the page is loaded before initialize() is called
+
+    </script>
+  </head>
+  <body>
+    <div id="panel">
+      <input id="address" type="textbox" value="Sydney, NSW">
+      <input type="button" value="Geocode" onclick="codeAddress()">
+    </div>
+  </body>
+</html>
