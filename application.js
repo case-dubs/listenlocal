@@ -34,14 +34,14 @@
 	  	console.dir(results);
      	 var latitude = results[0].geometry.location.lb;
      	 var longitude = results[0].geometry.location.mb;
-     	  console.log("your latitude is: " + latitude + " your longitude is: " + longitude);
+     	  //console.log("your latitude is: " + latitude + " your longitude is: " + longitude);
 
      	  skEventSearchAPI = "http://api.songkick.com/api/3.0/events.json?location=geo:" + latitude + 
      	  ","+ longitude + "&apikey=" + songkickKEY + "&jsoncallback=?";
      	  
      	  $.getJSON(skEventSearchAPI, function(skEventsReturned){
      	  	console.log("this was returned from the SK API call: ");
-     	  	console.dir(skEventsReturned);
+     	  	//console.dir(skEventsReturned);
      	  	
      	  	var eventsLength = skEventsReturned.resultsPage.results.event.length;
      	  	var loopCounter = "";
@@ -52,14 +52,14 @@
      	  			loopCounter = 20;
      	  		}else{
      	  			loopCounter = eventsLength;
-     	  		}
+     	  		};
 
-     	  	console.log("this is loopcounter's value: " + loopCounter);
+     	  	//console.log("this is loopcounter's value: " + loopCounter);
 
      	  	for (i = 0; i<loopCounter; i++){
 
      	  	console.log("counter =" + i);
-     	  	console.dir(skEventsReturned.resultsPage.results.event[i]);
+     	  	//console.dir(skEventsReturned.resultsPage.results.event[i]);
      	  	
 
     	  	var skEventHeadline = skEventsReturned.resultsPage.results.event[i].displayName;
@@ -69,25 +69,35 @@
      	  	var eventTime = skEventsReturned.resultsPage.results.event[i].start.time;
      	  	var eventLocation = skEventsReturned.resultsPage.results.event[i].location.city;
      	  	console.log(skArtistName + " is performing at " + eventVenue + " on " + eventDate + "at " + eventTime);
-     	  
+
      	  	var spotifyArtistApi = "http://ws.spotify.com/search/1/track?q=artist:"+skArtistName;	
 			console.log("this is the name of the skArtistName before it goes to spotify: " + skArtistName);
 			
 			var spotifyID = "";
 		
-			var getStuff = $.getJSON(spotifyArtistApi, function(stuffReturned) {
-				console.log( "in success method for the first API call" );
-				console.log("this was retruned from first API call:" + stuffReturned);
+
+			$.ajax({
+ 			 type: 'GET',
+ 			 url: spotifyArtistApi,
+ 		 	dataType: 'json',
+ 		 	success: function() {
+ 		 	console.log("this is i value on line 79:" + i);
+				//console.log( "in success method for the first API call" );
+				//console.log("this was retruned from first API call:" + stuffReturned);
+				console.dir(stuffReturned);
 			
 			//success method for page loading....
 
 			//getting tack information for song we want to play
+			if (stuffReturned.tracks.length > 0){
+				
+
 				var spotifyID = stuffReturned.tracks[0].href;	
 				console.log("this is the href returned " + spotifyID);
 			
 			//creating URI that will be passed to spotify widget
 				artistInfo =  "http://ws.spotify.com/lookup/1/?uri=" + spotifyID;
-				
+				console.log("this is i value on line 95:" + i);
 				console.log("this is the name of the skArtistName after the spotify calls: " + skArtistName);
 
 				var holderDiv = document.createElement('div');
@@ -105,18 +115,19 @@
 
 				holderDiv.appendChild(testButton);
 				$('#jsonOutput').before(holderDiv);
+				//PROBLEM! : why is a single div being added to all of the iframes?
 
 				var skEventInfo = document.createElement('div');
 				skEventInfo.className= "eventInformation";
 
 				var artistHeader = document.createElement('h2');
 				var artistNode = document.createTextNode(skArtistName);
-
 				skEventInfo.appendChild(artistNode);
 				console.log("this is the name of the skArtistName: " + skArtistName);
-				//PROBLEM! : why is a single div being added to all of the iframes?
+
 
 				holderDiv.appendChild(skEventInfo);
+				
 
 			//get spoity widget
 			//	var firstButton = document.getElementById("SpotifyButton");
@@ -146,18 +157,21 @@
 
 			//give widget the URI
 				testButton.src = "https://embed.spotify.com/?uri="+spotifyID;
-			
+				}		
 			   
-			})
-     	  }
-     	});
-
-
-    	} else {
-    	alert('Geocode was not successful for the following reason: ' + status);
-   		}
- 	 });
-	}
+			 },
+ 			 data: {},
+ 			 async: false
+  			});//ajax
+					}//for loop
+     	  }); //getJson
+			}//if
+			//}//geo function
+			};//big function
+		
+		
+     	//};
+			
 
 google.maps.event.addDomListener(window, 'load', initialize);
 		
@@ -199,8 +213,4 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		
 
 	};
-
-	/*
-		obviously this code is not done. How do you know you have the correct artist? How do you know you have the correct song? 
-	*/
 	
