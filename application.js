@@ -71,7 +71,8 @@
      	  	console.log(skArtistName + " is performing at " + eventVenue + " on " + eventDate + "at " + eventTime);
      	  
      	  	var spotifyArtistApi = "http://ws.spotify.com/search/1/track?q=artist:"+skArtistName;	
-		
+			console.log("this is the name of the skArtistName before it goes to spotify: " + skArtistName);
+			
 			var spotifyID = "";
 		
 			var getStuff = $.getJSON(spotifyArtistApi, function(stuffReturned) {
@@ -87,6 +88,8 @@
 			//creating URI that will be passed to spotify widget
 				artistInfo =  "http://ws.spotify.com/lookup/1/?uri=" + spotifyID;
 				
+				console.log("this is the name of the skArtistName after the spotify calls: " + skArtistName);
+
 				var holderDiv = document.createElement('div');
 				//holderDiv.style.height = '800px';
 				//holderDiv.style.border = '3px solid black';
@@ -110,7 +113,7 @@
 				var artistNode = document.createTextNode(skArtistName);
 
 				skEventInfo.appendChild(artistNode);
-				console.log("this is the name of the artistNode: " + artistNode);
+				console.log("this is the name of the skArtistName: " + skArtistName);
 				//PROBLEM! : why is a single div being added to all of the iframes?
 
 				holderDiv.appendChild(skEventInfo);
