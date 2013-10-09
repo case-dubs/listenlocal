@@ -149,3 +149,16 @@ body {
 .spotifyIframe {
 	margin-top: 20px;
 }
+
+.eventInformation {
+	background-color: white;
+	opacity: .8;
+	padding: 20px;
+	margin-top: -150px;
+	color: black;
+}
+
+.holderDiv {
+	margin: 20px;
+	display: inline-block;
+}
