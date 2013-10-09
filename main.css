@@ -121,6 +121,12 @@ body {
 	opacity: .5;
 }
 
+
+#resultsArea {
+	padding: 0px 75px;
+	text-align: center;
+}
+
 #jsonOutput{
 	margin-left: 80px;
 }
@@ -159,6 +165,6 @@ body {
 }
 
 .holderDiv {
-	margin: 20px;
+	margin: 40px 20px 80px 20px;
 	display: inline-block;
 }
