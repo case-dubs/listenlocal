@@ -28,6 +28,8 @@
 
 
 	function codeAddress() {
+		document.getElementById('heroMessage').style.display = 'none';
+		document.getElementById("loadingMessage").style.display = 'block';
  		var address = document.getElementById('zipCode').value;
   		geocoder.geocode( { 'address': address}, function(results, status) {
 			if (status == google.maps.GeocoderStatus.OK) {
@@ -48,11 +50,16 @@
 
 								//TODO: need to add instances for eventsLength = 0 and 1-19
 
-								if (eventsLength > 20){
+								/*if (eventsLength > 20){
 										loopCounter = 20;
 									}else{
 										loopCounter = eventsLength;
-									};
+									};*/
+
+								//Testing pagination plug in...
+
+								loopCounter = eventsLength;
+							
 
 								//console.log("this is loopcounter's value: " + loopCounter);
 
@@ -156,6 +163,14 @@
 												//give widget the URI
 
 												testButton.src = "https://embed.spotify.com/?uri="+spotifyID;
+
+												$(function() {
+   													$('#pagination').pagination({
+     												items: i,
+      												itemsOnPage: 25,
+        											cssStyle: 'dark-theme'
+   		 											});
+												});
 											} //end of...if (stuffReturned.tracks.length > 0)		
 							   
 									}, //end of success
@@ -166,11 +181,11 @@
 						}); //getJson
 			}//if (status == google.maps....
 		})//geocoder.geocode
+		//document.getElementById("loadingMessage").style.display='none';
 	};//end  function codeAddress
 		
 		
-     	//};
-			
+  
 
 google.maps.event.addDomListener(window, 'load', initialize);
 		

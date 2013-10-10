@@ -2,10 +2,12 @@
 <HTML>
 <Head>
 	<script src="./jquery-1.10.2.js"></script> 
+	<script type="text/javascript" src="./jquery.simplePagination.js"></script>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
   	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script> 
 	<link rel="stylesheet" type="text/css" href="main.css">
+	<link type="text/css" rel="stylesheet" href="simplePagination.css"/>
 	<title>Listen Local</title>
 </Head>
 <body>
@@ -29,6 +31,15 @@
 			<input type="button" value="Go" class="button" id="search" onclick="codeAddress();">
 		</div>
 	</div>	
+	<div id="loadingMessage">
+			<h1>One moment, please.</h1>
+			<h2>We're loading your results.</h2>
+			<div class="loader">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+	</div>
 	<div id="resultsArea">
 		<div id="jsonOutput"></div>
 			<iframe class="spotifyIframe" id="firstSpotifyButton" width='300' height='380' frameborder='0' allowtransparency='true'></iframe>
@@ -41,6 +52,7 @@
 			</div>
 		</div>
 	</div>
+	<div id="pagination"></div>
 	<!-- example from the spotify web site
 		<iframe src="https://embed.spotify.com/?uri=spotify:track:4bz7uB4edifWKJXSDxwHcs" width="300" height="380" frameborder="0" allowtransparency="true"></iframe> -->
 </body>
