@@ -162,9 +162,17 @@ body {
 	padding: 20px;
 	margin-top: -150px;
 	color: black;
+	width: 300px;
+	display: block;
 }
 
 .holderDiv {
 	margin: 40px 20px 80px 20px;
 	display: inline-block;
+	text-align: left;
+}
+
+.buyTickets {
+	text-align: right;
+	text-decoration: underline;
 }

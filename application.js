@@ -30,144 +30,142 @@
 	function codeAddress() {
  		var address = document.getElementById('zipCode').value;
   		geocoder.geocode( { 'address': address}, function(results, status) {
-   		if (status == google.maps.GeocoderStatus.OK) {
-	  	console.dir(results);
-     	 var latitude = results[0].geometry.location.lb;
-     	 var longitude = results[0].geometry.location.mb;
-     	  //console.log("your latitude is: " + latitude + " your longitude is: " + longitude);
+			if (status == google.maps.GeocoderStatus.OK) {
+				console.dir(results);
+						 var latitude = results[0].geometry.location.lb;
+						 var longitude = results[0].geometry.location.mb;
+						  //console.log("your latitude is: " + latitude + " your longitude is: " + longitude);
 
-     	  skEventSearchAPI = "http://api.songkick.com/api/3.0/events.json?location=geo:" + latitude + 
-     	  ","+ longitude + "&apikey=" + songkickKEY + "&jsoncallback=?";
-     	  
-     	  $.getJSON(skEventSearchAPI, function(skEventsReturned){
-     	  	console.log("this was returned from the SK API call: ");
-     	  	//console.dir(skEventsReturned);
-     	  	
-     	  	var eventsLength = skEventsReturned.resultsPage.results.event.length;
-     	  	var loopCounter = "";
+						  skEventSearchAPI = "http://api.songkick.com/api/3.0/events.json?location=geo:" + latitude + 
+						  ","+ longitude + "&apikey=" + songkickKEY + "&jsoncallback=?";
+						  
+						  $.getJSON(skEventSearchAPI, function(skEventsReturned){
+								console.log("this was returned from the SK API call: ");
+								//console.dir(skEventsReturned);
+							
+								var eventsLength = skEventsReturned.resultsPage.results.event.length;
+								var loopCounter = "";
 
-//TODO: need to add instances for eventsLength = 0 and 1-19
+								//TODO: need to add instances for eventsLength = 0 and 1-19
 
-     	  	if (eventsLength > 20){
-     	  			loopCounter = 20;
-     	  		}else{
-     	  			loopCounter = eventsLength;
-     	  		};
+								if (eventsLength > 20){
+										loopCounter = 20;
+									}else{
+										loopCounter = eventsLength;
+									};
 
-     	  	//console.log("this is loopcounter's value: " + loopCounter);
+								//console.log("this is loopcounter's value: " + loopCounter);
 
-     	  	for (i = 0; i<loopCounter; i++){
+								for (i = 0; i<loopCounter; i++){
 
-     	  	console.log("counter =" + i);
-     	  	//console.dir(skEventsReturned.resultsPage.results.event[i]);
-     	  	
+									console.log("counter =" + i);
+									//console.dir(skEventsReturned.resultsPage.results.event[i]);
+									
 
-    	  	var skEventHeadline = skEventsReturned.resultsPage.results.event[i].displayName;
-     	  	var skArtistName = skEventsReturned.resultsPage.results.event[i].performance[0].artist.displayName;
-     	  	var eventVenue = skEventsReturned.resultsPage.results.event[i].venue.displayName;
-     	  	var eventDate = skEventsReturned.resultsPage.results.event[i].start.date;
-     	  	var eventTime = skEventsReturned.resultsPage.results.event[i].start.time;
-     	  	var eventLocation = skEventsReturned.resultsPage.results.event[i].location.city;
-     	  	console.log(skArtistName + " is performing at " + eventVenue + " on " + eventDate + "at " + eventTime);
+									var skEventHeadline = skEventsReturned.resultsPage.results.event[i].displayName;
+									var skArtistName = skEventsReturned.resultsPage.results.event[i].performance[0].artist.displayName;
+									var eventVenue = skEventsReturned.resultsPage.results.event[i].venue.displayName;
+									var eventDate = skEventsReturned.resultsPage.results.event[i].start.date;
+									var eventTime = skEventsReturned.resultsPage.results.event[i].start.time;
+									var eventLocation = skEventsReturned.resultsPage.results.event[i].location.city;
+									console.log(skArtistName + " is performing at " + eventVenue + " on " + eventDate + "at " + eventTime);
 
-     	  	var spotifyArtistApi = "http://ws.spotify.com/search/1/track?q=artist:"+skArtistName;	
-			console.log("this is the name of the skArtistName before it goes to spotify: " + skArtistName);
-			
-			var spotifyID = "";
-		
+									var spotifyArtistApi = "http://ws.spotify.com/search/1/track?q=artist:"+skArtistName;	
+									console.log("this is the name of the skArtistName before it goes to spotify: " + skArtistName);
+									
+									var spotifyID = "";
+						
 
-			$.ajax({
- 			 type: 'GET',
- 			 url: spotifyArtistApi,
- 		 	dataType: 'json',
- 		 	success: function() {
- 		 	console.log("this is i value on line 79:" + i);
-				//console.log( "in success method for the first API call" );
-				//console.log("this was retruned from first API call:" + stuffReturned);
-				console.dir(stuffReturned);
-			
-			//success method for page loading....
+									$.ajax({
+										type: 'GET',
+										url: spotifyArtistApi,
+										dataType: 'json',
+										success: function(stuffReturned) {
+											console.log("this is i value on line 79:" + i);
+											//console.log( "in success method for the first API call" );
+											//console.log("this was retruned from first API call:" + stuffReturned);
+											console.dir(stuffReturned);
+							
+											//success method for page loading....
 
-			//getting tack information for song we want to play
-			if (stuffReturned.tracks.length > 0){
-				
+											//getting tack information for song we want to play
+											if (stuffReturned.tracks.length > 0){
+								
 
-				var spotifyID = stuffReturned.tracks[0].href;	
-				console.log("this is the href returned " + spotifyID);
-			
-			//creating URI that will be passed to spotify widget
-				artistInfo =  "http://ws.spotify.com/lookup/1/?uri=" + spotifyID;
-				console.log("this is i value on line 95:" + i);
-				console.log("this is the name of the skArtistName after the spotify calls: " + skArtistName);
+												var spotifyID = stuffReturned.tracks[0].href;	
+												console.log("this is the href returned " + spotifyID);
+									
+												//creating URI that will be passed to spotify widget
+												artistInfo =  "http://ws.spotify.com/lookup/1/?uri=" + spotifyID;
+												console.log("this is i value on line 95:" + i);
+												console.log("this is the name of the skArtistName after the spotify calls: " + skArtistName);
 
-				var holderDiv = document.createElement('div');
-				//holderDiv.style.height = '800px';
-				//holderDiv.style.border = '3px solid black';
-				holderDiv.className = 'holderDiv';
+												var holderDiv = document.createElement('div');
+												//holderDiv.style.height = '800px';
+												//holderDiv.style.border = '3px solid black';
+												holderDiv.className = 'holderDiv';
 
-				var testButton = document.createElement('iframe');
-				testButton.id = "SpotifyButton" + i;
-				testButton.class = "spotifyIframe";
-				testButton.width = '300';
-				testButton.height = '380';
-				testButton.frameborder = '0';
-				testButton.allowtransparency = 'true';
+												var testButton = document.createElement('iframe');
+												testButton.id = "SpotifyButton" + i;
+												testButton.class = "spotifyIframe";
+												testButton.width = '300';
+												testButton.height = '380';
+												testButton.frameborder = '0';
+												testButton.allowtransparency = 'true';
 
-				holderDiv.appendChild(testButton);
-				$('#jsonOutput').before(holderDiv);
-				//PROBLEM! : why is a single div being added to all of the iframes?
+												holderDiv.appendChild(testButton);
+												$('#jsonOutput').before(holderDiv);
+												//PROBLEM! : why is a single div being added to all of the iframes?
 
-				var skEventInfo = document.createElement('div');
-				skEventInfo.className= "eventInformation";
+												var skEventInfo = document.createElement('div');
+												skEventInfo.className= "eventInformation";
 
-				var artistHeader = document.createElement('h2');
-				var artistNode = document.createTextNode(skArtistName);
-				skEventInfo.appendChild(artistNode);
-				console.log("this is the name of the skArtistName: " + skArtistName);
+												//TODO: need to figure out how to make artistNode a hyperlink to the artist's spotify url
+												var artistHeader = document.createElement('h2');
+												var artistNode = document.createTextNode(skArtistName);
+												
+												
+												//console.log("this is the name of the skArtistName: " + skArtistName);
 
 
-				holderDiv.appendChild(skEventInfo);
-				
+												var skEventDate = document.createElement('h3');
+												var dateNode = document.createTextNode("Date: " + eventDate);
 
-			//get spoity widget
-			//	var firstButton = document.getElementById("SpotifyButton");
-			
-			//adding SK artist info before spotify widget loads:
 
-	
-//				var artistNode = document.createTextNode(skArtistName);
+												var skEventVenue = document.createElement('h3');
+												var venueNode = document.createTextNode("Venue: " + eventVenue);
+												
+												var skEventLocation = document.createElement('h3');
+												var cityNode = document.createTextNode("Location: " + eventLocation);
+												
+												var buyTickets = document.createElement('h3');
+												buyTickets.className = "buyTickets";
+												var ticketsNode = document.createTextNode("Buy Tickets");
 
-			/*	var date = document.getElementById('eventDate');
-				var dateNode = document.createTextNode('Date: '+ eventDate);
+												skEventInfo.appendChild(artistNode);
+												skEventInfo.appendChild(dateNode);
+												skEventInfo.appendChild(cityNode);
+												skEventInfo.appendChild(ticketsNode);
 
-				var venue = document.getElementById('eventVenue');
-				var venueNode = document.createTextNode('Venue: ' + eventVenue);
+												holderDiv.appendChild(skEventInfo);
 
-				var city = document.getElementById('eventCity');
-				var cityNode = document.createTextNode('Location: ' + eventLocation);
-			
-			//TODO: need to add a function that erases the content in #Basic Details before it's propogated by new content
+												//TODO: need to figure out how to make this a hyperlink to the songkick url for the event
 
-			//prints the artist and event info on the page above the listen app
+												
+												//give widget the URI
 
-			/*	artistHeader.appendChild(artistNode);
-				date.appendChild(dateNode);
-				venue.appendChild(venueNode);
-				city.appendChild(cityNode);*/
-
-			//give widget the URI
-				testButton.src = "https://embed.spotify.com/?uri="+spotifyID;
-				}		
-			   
-			 },
- 			 data: {},
- 			 async: false
-  			});//ajax
-					}//for loop
-     	  }); //getJson
-			}//if
-			//}//geo function
-			};//big function
+												testButton.src = "https://embed.spotify.com/?uri="+spotifyID;
+											} //end of...if (stuffReturned.tracks.length > 0)		
+							   
+									}, //end of success
+									data: {},
+									async: false
+								});//ajax
+							}//for loop
+						}); //getJson
+			}//if (status == google.maps....
+		})//geocoder.geocode
+	};//end  function codeAddress
 		
 		
      	//};
