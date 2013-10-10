@@ -144,6 +144,7 @@
 
 												skEventInfo.appendChild(artistNode);
 												skEventInfo.appendChild(dateNode);
+												skEventInfo.appendChild(venueNode)
 												skEventInfo.appendChild(cityNode);
 												skEventInfo.appendChild(ticketsNode);
 
