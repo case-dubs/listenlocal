@@ -183,8 +183,11 @@
 		})//geocoder.geocode
 		//document.getElementById("loadingMessage").style.display='none';
 	};//end  function codeAddress
-		
-		
+	
+	//attempt to make the loading message disapear once the results from the query are loaded	
+	document.getElementById("loadingMessage").style.display = 'none';
+	document.getElementById('heroMessage').style.display = 'inline-block';
+	
   
 
 google.maps.event.addDomListener(window, 'load', initialize);
