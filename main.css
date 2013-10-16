@@ -55,8 +55,8 @@ body {
 #heroMessage {
 	z-index: 2;
 	position: relative;
-	display: inline-block;
-	float: left;
+	display: block;
+	text-align: left;
 	margin-left: -180px;
 	margin-top: 50px;
 	width: 700px;
@@ -77,8 +77,53 @@ body {
 	letter-spacing: .15em;
 }
 
+
+#query {
+	position: relative;
+	/*margin-top: 450px;
+	margin-left: -180px;*/
+	display: inline-block;
+	margin-left: 80px;
+	margin-top: 40px;
+}
+
+#query h2 {
+	display: inline-block;
+	text-transform: uppercase;
+	font-size: 16px;
+	position: relative;
+	color: white;
+	margin-right: 15px;
+}
+
+.searchInput{
+	height: 30px;
+	width: 150px;
+	margin-right: 25px;
+}
+
+/*#distance {
+	
+}*/
+
+#search {
+	background-color: #F9E382;
+	/*color: brown;*/
+	height: 45px;
+	border-radius: 25px;
+	width: 75px;
+	border: none;
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+#search:hover{
+	opacity: .5;
+}
+
 #loadingMessage {
-	height: 250px;
+	height: 200px;
 	width: 400px;
 	border-radius: 10px;
 	background-color: white;
@@ -86,7 +131,7 @@ body {
 	display: none;
 	float: center;
 	margin: 50px auto;
-	margin-top: -400px;
+	margin-top: -350px;
 	padding: 50px;
 	color: #0D0401;
 	opacity: .95;
@@ -146,51 +191,6 @@ body {
     -moz-transform: translateY(-21px);
   }
 }
-
-#query {
-	position: relative;
-	/*margin-top: 450px;
-	margin-left: -180px;*/
-	display: inline-block;
-	margin-left: 80px;
-	margin-top: 40px;
-}
-
-#query h2 {
-	display: inline-block;
-	text-transform: uppercase;
-	font-size: 16px;
-	position: relative;
-	color: white;
-	margin-right: 15px;
-}
-
-.searchInput{
-	height: 30px;
-	width: 150px;
-	margin-right: 25px;
-}
-
-#distance {
-	
-}
-
-#search {
-	background-color: #F9E382;
-	/*color: brown;*/
-	height: 45px;
-	border-radius: 25px;
-	width: 75px;
-	border: none;
-	font-size: 14px;
-	font-weight: bold;
-	text-transform: uppercase;
-}
-
-#search:hover{
-	opacity: .5;
-}
-
 
 #resultsArea {
 	padding: 0px 75px;

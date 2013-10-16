@@ -18,6 +18,11 @@
 		SONGKICK API KEY: 35THAG0Bg0dhRmSN
 
 		*/
+	function clearLoading(){
+		document.getElementById("loadingMessage").style.display = 'none';
+		document.getElementById('heroMessage').style.display = 'inline-block';
+	
+  	};
 
 	var songkickKEY = "35THAG0Bg0dhRmSN";
 	var geocoder;
@@ -38,23 +43,86 @@
 						 var longitude = results[0].geometry.location.mb;
 						  //console.log("your latitude is: " + latitude + " your longitude is: " + longitude);
 
+
+
 						  skEventSearchAPI = "http://api.songkick.com/api/3.0/events.json?location=geo:" + latitude + 
-						  ","+ longitude + "&apikey=" + songkickKEY + "&jsoncallback=?";
-						  
-						  $.getJSON(skEventSearchAPI, function(skEventsReturned){
+						  ","+ longitude + "&per_page=30" + "&apikey=" + songkickKEY + "&jsoncallback=?";
+			
+							skCall(skEventSearchAPI);
+							$(function() {
+   								$('#pagination').pagination({
+     							items: i,
+      							itemsOnPage: 30,
+        						cssStyle: 'dark-theme'
+   		 						});
+							});
+
+						
+			}//if (status == google.maps....
+		})//geocoder.geocode
+		
+	};//end  function codeAddress
+	
+	//attempt to make the loading message disapear once the results from the query are loaded
+
+  	clearLoading();
+
+google.maps.event.addDomListener(window, 'load', initialize);
+		
+/*	function submit(){
+		console.log("Submit button works");
+		
+		//artistName is the name that the user enters in the front end
+		var artistField = document.getElementById('artistName');
+		var artistName = artistField.value;
+		console.log("artist name is " + artistName);
+		
+		
+		//this URI returns all tracks associated with a certain artist (artistName)
+		var spotifyArtistApi = "http://ws.spotify.com/search/1/track?q=artist:"+artistName	
+		
+		var spotifyID = "";
+		
+	
+		
+		var getStuff = $.getJSON(spotifyArtistApi, function(stuffReturned) {
+			console.log( "in success method for the first API call" );
+			console.log("this was retruned from first API call:" + stuffReturned);
+			
+			//getting tack information for song we want to play
+			var spotifyID = stuffReturned.tracks[0].href;	
+			console.log("this is the href returned " + spotifyID);
+			
+			//creating URI that will be passed to spotify widget
+			artistInfo =  "http://ws.spotify.com/lookup/1/?uri=" + spotifyID;
+				
+			//get spoity widget
+			var firstButton = document.getElementById("firstSpotifyButton");
+			
+			//give widget the URI
+			firstButton.src = "https://embed.spotify.com/?uri="+spotifyID;
+			
+			  
+		})
+		
+
+	};*/
+			//from here to 173 we break out into it's own function - when you call it, you clear the page and add the new stuff. The only thing that changes is  
+						function skCall (skEventSearchAPI){  
+							$.getJSON(skEventSearchAPI, function(skEventsReturned){
 								console.log("this was returned from the SK API call: ");
-								//console.dir(skEventsReturned);
+								console.dir(skEventsReturned);
 							
 								var eventsLength = skEventsReturned.resultsPage.results.event.length;
 								var loopCounter = "";
 
 								//TODO: need to add instances for eventsLength = 0 and 1-19
 
-								/*if (eventsLength > 20){
-										loopCounter = 20;
+								if (eventsLength > 30){
+										loopCounter = 30;
 									}else{
 										loopCounter = eventsLength;
-									};*/
+									};
 
 								//Testing pagination plug in...
 
@@ -63,10 +131,11 @@
 
 								//console.log("this is loopcounter's value: " + loopCounter);
 
+
 								for (i = 0; i<loopCounter; i++){
 
 									console.log("counter =" + i);
-									//console.dir(skEventsReturned.resultsPage.results.event[i]);
+									//console.dir("sk results: " + skEventsReturned.resultsPage.results.event[i]);
 									
 
 									var skEventHeadline = skEventsReturned.resultsPage.results.event[i].displayName;
@@ -164,13 +233,6 @@
 
 												testButton.src = "https://embed.spotify.com/?uri="+spotifyID;
 
-												$(function() {
-   													$('#pagination').pagination({
-     												items: i,
-      												itemsOnPage: 25,
-        											cssStyle: 'dark-theme'
-   		 											});
-												});
 											} //end of...if (stuffReturned.tracks.length > 0)		
 							   
 									}, //end of success
@@ -178,56 +240,5 @@
 									async: false
 								});//ajax
 							}//for loop
-						}); //getJson
-			}//if (status == google.maps....
-		})//geocoder.geocode
-		//document.getElementById("loadingMessage").style.display='none';
-	};//end  function codeAddress
-	
-	//attempt to make the loading message disapear once the results from the query are loaded	
-	document.getElementById("loadingMessage").style.display = 'none';
-	document.getElementById('heroMessage').style.display = 'inline-block';
-	
-  
-
-google.maps.event.addDomListener(window, 'load', initialize);
-		
-	function submit(){
-		console.log("Submit button works");
-		
-		//artistName is the name that the user enters in the front end
-		var artistField = document.getElementById('artistName');
-		var artistName = artistField.value;
-		console.log("artist name is " + artistName);
-		
-		
-		//this URI returns all tracks associated with a certain artist (artistName)
-		var spotifyArtistApi = "http://ws.spotify.com/search/1/track?q=artist:"+artistName	
-		
-		var spotifyID = "";
-		
-	
-		
-		var getStuff = $.getJSON(spotifyArtistApi, function(stuffReturned) {
-			console.log( "in success method for the first API call" );
-			console.log("this was retruned from first API call:" + stuffReturned);
-			
-			//getting tack information for song we want to play
-			var spotifyID = stuffReturned.tracks[0].href;	
-			console.log("this is the href returned " + spotifyID);
-			
-			//creating URI that will be passed to spotify widget
-			artistInfo =  "http://ws.spotify.com/lookup/1/?uri=" + spotifyID;
-				
-			//get spoity widget
-			var firstButton = document.getElementById("firstSpotifyButton");
-			
-			//give widget the URI
-			firstButton.src = "https://embed.spotify.com/?uri="+spotifyID;
-			
-			  
-		})
-		
-
-	};
-	
+							}); //getJson
+						};
